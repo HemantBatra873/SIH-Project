@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Marcellus";
+  src: url("./assets/fonts/Marcellus-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Italiana";
+  src: url("./assets/fonts/Italiana-Regular.ttf") format("truetype");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +16,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
