@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLandmark } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function LeftSideBar({ isOpen, closeSidebar }) {
   return (
@@ -9,27 +9,41 @@ export default function LeftSideBar({ isOpen, closeSidebar }) {
       <div
         className={`fixed top-[15vh] left-0 h-[calc(100vh-140px)] w-64 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } bg-white bg-opacity-80 backdrop-blur-lg shadow-lg`}
+        } bg-white bg-opacity-90 backdrop-blur-lg shadow-2xl border-r border-gray-200 z-40`}
       >
-        <div className="p-4 h-full relative">
-          {/* Close Button */}
+        <div className="p-6 h-full relative text-black">
+          {/* Close Button with Cross Icon */}
           <button
-            className="absolute top-4 right-4 bg-pink-500 text-white p-0 rounded"
+            className="absolute top-4 right-4 bg-transparent text-black p-2 rounded-full cursor-pointer hover:shadow-xl hover:bg-gray-100 hover:rounded-lg"
             onClick={closeSidebar}
           >
-            Close
+            <FontAwesomeIcon icon={faTimes} />
           </button>
-          <h2 className="text-lg font-semibold">Sidebar Content</h2>
-          <p>
-            This sidebar leaves space for the header and bottom input. Click the close button or outside the sidebar to close it.
-          </p>
+          
+          {/* Sidebar Content */}
+          <h2 className="text-xl font-semibold mb-4 border-b border-gray-400 pb-2">Museum Services</h2>
+          
+          <ul className="space-y-4">
+            <li className="cursor-pointer hover:text-gray-700 transition-all duration-300 hover:shadow-xl hover:bg-gray-100 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Book a Tour</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-700 transition-all duration-300 hover:shadow-xl hover:bg-gray-100 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Buy Tickets</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-700 transition-all duration-300 hover:shadow-xl hover:bg-gray-100 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Exhibit Information</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-700 transition-all duration-300 hover:shadow-xl hover:bg-gray-100 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Contact Us</button>
+            </li>
+          </ul>
         </div>
       </div>
 
       {/* Overlay for closing the sidebar by clicking outside */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-0"
+          className="fixed inset-0 bg-black bg-opacity-30 z-30"
           onClick={closeSidebar}
         ></div>
       )}

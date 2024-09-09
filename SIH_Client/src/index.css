@@ -19,3 +19,16 @@
   background-color: white;
   color: black;
 }
+/* index.css */
+
+/* Hide chat box on small screens by default */
+@media (max-width: 768px) {
+  .sm\:w-30 {
+    width: 100% !important;
+  }
+}
+
+/* Ensure chat box toggles properly on small screens */
+.transition-transform {
+  transition: transform 0.3s ease-in-out;
+}
