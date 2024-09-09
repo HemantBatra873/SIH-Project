@@ -20,6 +20,13 @@ function App() {
     setIsOpen(false);
   };
 
+  const [isChatBoxOpen, setIsChatBoxOpen] = useState(false);
+
+  const toggleChatBox = () => {
+    setIsChatBoxOpen(!isChatBoxOpen);
+  };
+
+
   return (
     <BrowserRouter>
       {/* Header with toggleSidebar passed as prop */}
@@ -38,8 +45,11 @@ function App() {
           </Routes>
         </div>
         {/* Layout and Defaultpage components */}
-        <Layout />
+        <div className="flex-1 flex">
+        <Layout isChatBoxOpen={isChatBoxOpen} />
         <Defaultpage />
+      </div>
+
       </div>
     </BrowserRouter>
   );

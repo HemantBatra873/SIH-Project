@@ -31,10 +31,10 @@ export default function Defaultpage() {
     <div className="relative flex w-full h-screen">
       {/* Chat Box */}
       <div
-        className={`fixed right-0 top-[1vh] h-[90vh] bg-white shadow-lg border-1 border-gray-300 p-4 sm:p-6 transition-transform duration-300 ${
+        className={`fixed right-0  h-full bg-white  shadow-lg border border-gray-300 p-4 sm:p-6 transition-transform duration-300 ${
           isChatBoxOpen ? 'translate-x-0' : 'translate-x-full'
-        } sm:w-[30%] w-full sm:translate-x-0`}
-        style={{ marginTop: '10vh' }}
+        } sm:w-[35%] w-full sm:translate-x-0`}
+        style={{ marginTop: '4rem' }}
       >
         {/* Chat Bot Header */}
         <div className="flex justify-between items-center mb-4">
@@ -51,7 +51,7 @@ export default function Defaultpage() {
         </div>
 
         {/* Output Section */}
-        <div className="flex-1 overflow-auto h-[65vh] w-11/12 bg-gray-100 border border-gray-300 rounded-lg mb-2 p-4 mx-auto">
+        <div className="flex-1 overflow-auto h-[65vh] w-11/12 bg-gray-100 border border-gray-300 rounded-lg p-4 mx-auto">
           <p className="text-black-700 whitespace-pre-wrap bg-gray-100">
             This is where the output will be displayed. You can have a large amount of text here, and it will scroll if it's too much for the visible area.
           </p>
