@@ -1,10 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTicketAlt, faComments, faTimes } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTicketAlt,
+  faComments,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+import MessageInput from "./MessageInput";
+import ServerChatBox from "./ServerChatBox";
+import UserChatBox from "./UserChatBox";
 
 export default function Defaultpage() {
   const [isChatBoxOpen, setIsChatBoxOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1000);
+  const [messages, setMessages] = useState([]);
+
+  const sendMessageToServer = async (message) => {
+    // Add user message to the chat
+    setMessages([...messages, { type: "user", text: message }]);
+
+    try {
+      const response = await fetch("http://localhost:3000/user/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await response.json();
+      // Add server message to the chat
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "ai", text: data.response },
+      ]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   // Handle resizing to toggle mobile view state
   useEffect(() => {
@@ -12,10 +42,10 @@ export default function Defaultpage() {
       setIsMobileView(window.innerWidth < 1000);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -28,17 +58,17 @@ export default function Defaultpage() {
   };
 
   return (
-    <div className="relative flex w-full h-screen">
+    <div className="relative flex w-[35%] h-screen">
       {/* Chat Box */}
       <div
-        className={`fixed right-0  h-full bg-white  shadow-lg border border-gray-300 p-4 sm:p-6 transition-transform duration-300 ${
-          isChatBoxOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed right-0  h-full border border-gray-300 p-4 sm:p-6 transition-transform duration-300 ${
+          isChatBoxOpen ? "translate-x-0" : "translate-x-full"
         } sm:w-[35%] w-full sm:translate-x-0`}
-        style={{ marginTop: '4rem' }}
+        style={{ marginTop: "4rem" }}
       >
         {/* Chat Bot Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg ml-5 font-semibold">Chat Bot</h2>
+          <h2 className="text-lg ml-5 font-semibold mt-3">Chat Bot</h2>
           {/* Only show close button if chat box is opened via the icon on mobile view */}
           {isChatBoxOpen && isMobileView && (
             <button
@@ -51,30 +81,20 @@ export default function Defaultpage() {
         </div>
 
         {/* Output Section */}
-        <div className="flex-1 overflow-auto h-[65vh] w-11/12 bg-gray-100 border border-gray-300 rounded-lg p-4 mx-auto">
-          <p className="text-black-700 whitespace-pre-wrap bg-gray-100">
-            This is where the output will be displayed. You can have a large amount of text here, and it will scroll if it's too much for the visible area.
-          </p>
+        <div className="flex-1 sm:mb-5 overflow-auto h-[65vh] w-11/12 border border-gray-300 rounded-lg p-4 mx-auto">
+          <div className="messages">
+            {messages.map((msg, index) =>
+              msg.type === "user" ? (
+                <UserChatBox key={index} message={msg.text} />
+              ) : (
+                <ServerChatBox key={index} message={msg.text} />
+              )
+            )}
+          </div>
         </div>
 
         {/* Input Section */}
-        <div className="relative bg-white border-t border-gray-300 p-4 flex items-center">
-          <textarea
-            className="form-control border-2 border-gray-400 rounded-lg w-full p-2 pr-10 resize-none overflow-hidden"
-            placeholder="Type your message..."
-            rows="1"
-            aria-label="Text input"
-            style={{ maxHeight: '150px' }}
-            onInput={(e) => {
-              e.target.style.height = 'auto'; // Reset height
-              e.target.style.height = `${e.target.scrollHeight}px`; // Set new height without growing upwards
-            }}
-          />
-          <FontAwesomeIcon
-            icon={faTicketAlt}
-            className="absolute top-4 right-6 text-gray-500"
-          />
-        </div>
+        <MessageInput onSendMessage={sendMessageToServer} />
       </div>
 
       {/* Chat Box Toggle Icon (Visible on small screens) */}
