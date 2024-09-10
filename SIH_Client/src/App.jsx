@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import LeftSideBar from "./components/LeftSideBar";
 import Home from "./pages/Home";
 
-function App() {
+function App() { 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
