@@ -25,7 +25,6 @@ const Header = ({ toggleSidebar }) => {
         </div>
 
         <ul className='flex justify-center sm:gap-8 items-center mr-8 text-lg sm:text-xl'>
-          <Link to='/about'><li className='hidden sm:inline'>About</li></Link>
           <Link to='/login'><li>Login</li></Link>
         </ul>
       </div>

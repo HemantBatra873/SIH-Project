@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import About from './pages/About';
 import Defaultpage from './components/Defaultpage';
 import Layout from './components/Layout';
 
@@ -40,8 +38,7 @@ function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />
+
           </Routes>
         </div>
         {/* Layout and Defaultpage components */}
