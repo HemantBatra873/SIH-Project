@@ -24,7 +24,7 @@ function MessageInput({ onSendMessage }) {
       <FontAwesomeIcon
         icon={faPaperPlane}
         onClick={handleSend}
-        className="absolute right-10 text-gray-500 h-6 w-8"
+        className="absolute right-10 hover:scale-105  duration-300 transition-all text-gray-500 h-6 w-8"
       />
     </div>
   );

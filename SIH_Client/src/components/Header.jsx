@@ -10,7 +10,7 @@ const Header = ({ toggleSidebar }) => {
         <div className="inline-flex items-center">
           {/* Sidebar Toggle Button */}
           <button
-            className="text-2xl sm:text-3xl md:text-4xl p-2 transition duration-200 ease-in-out bg-white rounded-full  hover:shadow-xl focus:shadow-lg focus:outline-none"
+            className="text-2xl sm:text-3xl md:text-4xl p-2 transition duration-200 ease-in-out bg-white rounded-full  hover:shadow-xl hover:shadow-slate-300 focus:shadow-lg focus:outline-none"
             type="button"
             onClick={toggleSidebar}
           >
