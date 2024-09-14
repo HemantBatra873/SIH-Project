@@ -4,9 +4,9 @@ export default function Layout({ isChatBoxOpen }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
-    "../public/img/2024-02-23.jpg",
-    "../public/img/IMG_20220914_155241.jpg",
-    "../public/img/PXL_20230313_082829229.PORTRAIT.jpg",
+    "/img/2024-02-23.jpg",
+    "/img/IMG_20220914_155241.jpg",
+    "/img/PXL_20230313_082829229.PORTRAIT.jpg",
   ];
 
   // Preload all images to avoid flickering
@@ -35,6 +35,7 @@ export default function Layout({ isChatBoxOpen }) {
   const handleNextImage = () => {
     setCurrentImage((prevImage) => (prevImage + 1) % images.length);
   };
+
   // State to handle event section expansion
   const [expandedEvent, setExpandedEvent] = useState(null);
 
@@ -49,7 +50,7 @@ export default function Layout({ isChatBoxOpen }) {
         isChatBoxOpen ? "w-[65%]" : "w-[100%]"
       }`}
     >
-             {/* Slideshow Banner */}
+         {/* Slideshow Banner */}
       <section className="mb-12">
         <div className="relative w-full h-[400px] bg-center bg-cover bg-no-repeat">
           {/* Background image for slideshow */}
@@ -78,7 +79,6 @@ export default function Layout({ isChatBoxOpen }) {
           </button>
         </div>
       </section>
-
 
       {/* Events Section */}
       <section className="mb-12">
