@@ -12,7 +12,18 @@ import UserChatBox from "./UserChatBox";
 export default function Defaultpage() {
   const [isChatBoxOpen, setIsChatBoxOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1000);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      type: "ai",
+      text: "Hello! What can I do for you today? You can ask me to 'Book a Ticket' or 'Inquire about the Museum Timings'.",
+    },
+  ]);
+
+  const [defaultOptions] = useState([
+    { label: "Tell me about museum", value: "museum" },
+    { label: "Book Tickets", value: "book" },
+    { label: "Inquire About Timings", value: "timings" },
+  ]);
 
   const sendMessageToServer = async (message) => {
     // Add user message to the chat
@@ -33,6 +44,17 @@ export default function Defaultpage() {
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  };
+
+  // default options for booking and timings
+  const handleOptionClick = (option) => {
+    if (option.value === "book") {
+      sendMessageToServer("I want to book a ticket");
+    } else if (option.value === "timings") {
+      sendMessageToServer("What are the museum timings?");
+    } else {
+      sendMessageToServer("Tell me about the museum");
     }
   };
 
@@ -58,7 +80,7 @@ export default function Defaultpage() {
   };
 
   return (
-    <div className="relative flex w-[35%] h-screen">
+    <div className="relative flex w-[35%] h-screen font-sm sm:font-md">
       {/* Chat Box */}
       <div
         className={`fixed right-0  h-full border border-gray-300 p-4 sm:p-6 transition-transform duration-300 ${
@@ -81,7 +103,7 @@ export default function Defaultpage() {
         </div>
 
         {/* Output Section */}
-        <div className="flex-1 sm:mb-5 overflow-auto h-[65vh] w-11/12 border border-gray-300 rounded-lg p-4 mx-auto">
+        <div className="flex-1 sm:mb-5 overflow-auto h-[52vh] sm:h-[65vh] w-11/12 border border-gray-300 rounded-lg p-4 mx-auto">
           <div className="messages">
             {messages.map((msg, index) =>
               msg.type === "user" ? (
@@ -91,6 +113,19 @@ export default function Defaultpage() {
               )
             )}
           </div>
+        </div>
+
+        {/* Default clickable options */}
+        <div className="space-x-4 p-4 flex flex-1">
+          {defaultOptions.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => handleOptionClick(option)}
+              className="bg-black text-white border hover:border-black transition-all ease-in p-2 rounded-lg hover:bg-white hover:text-black"
+            >
+              {option.label}
+            </button>
+          ))}
         </div>
 
         {/* Input Section */}

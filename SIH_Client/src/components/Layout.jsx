@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Layout({ isChatBoxOpen }) {
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1000);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 1000);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div
       className={`flex flex-col transition-all duration-300 h-auto p-4 mt-[80px] lg:mt-[100px] ${
-        isChatBoxOpen ? "w-[65%]" : "w-[100%]"
+        isMobileView ? "w-[100%]" : "w-[65%]"
       }`}
     >
       {/* Museum Header */}
       <section className="mb-12">
         <div
-          className="relative w-full h-[400px] bg-center bg-cover bg-no-repeat"
+          className="relative w-full h-[400px] bg-center bg-cover flex items-center justify-center"
           style={{
-            backgroundImage: `url('https://via.placeholder.com/1200x400')`,
+            backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3ZuRTTv_CdtRl6fWcFU2nekj2BAooq4BUw&s')`,
           }}
         >
-          <div className="absolute inset-0 bg-opacity-50 flex items-center justify-center">
-            <h1 className="text-5xl font-bold text-black">
-              Welcome to the National Museum
-            </h1>
+          <div className="sm:text-3xl md:text-6xl font-bold text-white absolute bg-transparent">
+            Welcome to the National Museum
           </div>
         </div>
       </section>
@@ -34,7 +44,7 @@ export default function Layout({ isChatBoxOpen }) {
           heritage of our nation.
         </p>
         <img
-          src="https://via.placeholder.com/800x400"
+          src="https://d1bb1mccaihlpl.cloudfront.net/variants/a99z44tk1y9yavefreyx92fksmsp/5495488087431af32265aaaaa1b8a274541d70555aa4d7c01d8d0fed27e7c152"
           alt="Museum Interior"
           className="rounded-lg shadow-md mb-6 mx-auto"
         />
@@ -46,7 +56,7 @@ export default function Layout({ isChatBoxOpen }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="rounded-lg p-4">
             <img
-              src="https://via.placeholder.com/400x300"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3ZuRTTv_CdtRl6fWcFU2nekj2BAooq4BUw&s"
               alt="Artifact 1"
               className="rounded-md mb-4"
             />
