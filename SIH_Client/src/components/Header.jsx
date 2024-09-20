@@ -10,16 +10,36 @@ const Header = ({ toggleSidebar }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+
+    // Check if user data is stored in local storage
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (storedUser) {
+      // If user data exists in local storage, set it
+      setUser(storedUser);
+    } else {
+    // If no local storage data, listen to auth changes
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+      // Store user in localStorage when logged in
+      const userData = {
+        email: firebaseUser.email,
+        displayName: firebaseUser.displayName || firebaseUser.email,
+        photoURL: firebaseUser.photoURL || null
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData); // Set user state
+      }
     });
     return () => unsubscribe();
+   }
   }, []);
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         setUser(null);
+        localStorage.removeItem('user'); // Remove user data from local storage
         setDropdownVisible(false); // Hide dropdown on logout
       })
       .catch((error) => {
@@ -58,9 +78,9 @@ const Header = ({ toggleSidebar }) => {
               onClick={toggleDropdown}
             />
              {dropdownVisible && (
-            <div className="absolute right-0 mt-2 p-2 bg-white border rounded shadow-lg">
+            <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg  bg-blue-700 ">
               <Link to={'/'}>
-                <button onClick={handleLogout} className="text-red-600">Logout</button>
+                <button onClick={handleLogout} className="text-white bg-blue-700 ">Logout</button>
               </Link>
             </div>
             )}

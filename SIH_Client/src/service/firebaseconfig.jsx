@@ -3,18 +3,19 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCb2IBVvIeA_P319mfv0Refkzr__e7jAtM",
-  authDomain: "chatbot-ticketing-system-92a08.firebaseapp.com",
-  projectId: "chatbot-ticketing-system-92a08",
-  storageBucket: "chatbot-ticketing-system-92a08.appspot.com",
-  messagingSenderId: "149461740786",
-  appId: "1:149461740786:web:b016d99acbea696000f46b",
-  measurementId: "G-19NGYV5H6Y"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const firestore = getFirestore(app);
 
 
-export { auth, db, GoogleAuthProvider, signInWithPopup, signOut, doc, setDoc, app };
+export { auth, db, GoogleAuthProvider, signInWithPopup, signOut, doc, setDoc, app, firestore };
