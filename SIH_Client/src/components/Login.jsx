@@ -3,7 +3,11 @@ import { auth, firestore } from '../service/firebaseconfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from "react-icons/fc";
 import museumImage from '../assets/museumphoto.jpg';
+import museum from '../assets/museum.jpg';
+import museumm from '../assets/museumm.jpg';
+
 
 
 const Login = () => {
@@ -103,16 +107,17 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
-      <div className="flex flex-col justify-center w-1/2 p-8">
+    <div className="flex max-h-screen bg-gray-900 text-white">
+      <div className="flex flex-col justify-center w-1/2 p-8 mt-20">
         <h1 className="text-4xl mb-4 text-center">Welcome to Science Museum 🎟️</h1>
-        <h2 className="text-3xl mb-4 text-center">{isSignUp ? 'Sign Up' : 'Login to get Started'}</h2>
+        <div className='flex flex-col w-96 border rounded-xl self-center place-content-center place-items-center space-y-4 p-4 shadow-lg shadow-gray-400 mt-4'>
+        <h2 className="text-3xl mb-4 text-center mt-4">{isSignUp ? 'Sign Up to get Started' : 'Hey, Sign In'}</h2>
 
         {/* Email Input */}
         <input
           type="email"
-          className="p-2 border border-gray-700 rounded mb-4 bg-gray-800 text-sm text-white max-w-xs mx-auto block"
-          placeholder="📧 Email :"
+          className="p-2 border border-black rounded mb-4 text-sm text-black max-w-xs mx-auto block w-full"
+          placeholder="📧 Email "
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -120,8 +125,8 @@ const Login = () => {
         {/* Password Input */}
         <input
           type="password"
-          className="p-2 border border-gray-700 rounded mb-4 bg-gray-800 text-sm text-white max-w-xs mx-auto block"
-          placeholder="🔒 Password :"
+          className="p-2 border border-black rounded mb-4 text-sm text-black max-w-xs mx-auto block w-full"
+          placeholder="🔒 Password "
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -129,7 +134,7 @@ const Login = () => {
          {/* Forgot Password */}
          <div className="text-center mb-4">
           <button
-            className="text-blue-600 underline"
+            className="text-black underline"
             onClick={handleForgotPassword}
           >
             Forgot Password?
@@ -140,47 +145,74 @@ const Login = () => {
         {isSignUp ? (
           <button
             onClick={handleSignUp}
-            className="dark:bg-blue-600 dark:hover:bg-blue-700 text-white p-2 rounded mb-4 max-w-xs mx-auto block"
+            className="dark:bg-blue-600 dark:hover:bg-blue-700 text-white p-2 rounded mb-4 max-w-xs mx-auto block w-full"
           >
-            Sign Up here
+            Sign Up 
           </button>
         ) : (
           <button
             onClick={handleEmailSignIn}
-            className="dark:bg-blue-600 dark:hover:bg-blue-700 text-white p-2 rounded mb-4 max-w-xs mx-auto block"
+            className="dark:bg-blue-600 dark:hover:bg-blue-700 text-white p-2 rounded mb-4 max-w-xs mx-auto block w-full"
           >
-            Login here
+            Sign In
           </button>
         )}
+
+        {/* Switch between Sign-Up and Login */}
+        <p className=" text-center text-gray-600">
+          {isSignUp ? 'Already have an account?' : 'No account yet?'}
+          <button
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-black underline ml-2"
+          >
+            {isSignUp ? 'Sign In' : 'Sign Up'}
+          </button>
+        </p>
+
+        {/* Divider */}
+        <div className="flex items-center justify-center mb-2 mt-2">
+          <div className="w-32 border-t border-gray-600"></div>
+          <span className="mx-4 text-gray-600">OR</span>
+          <div className="w-32 border-t border-gray-600"></div>
+        </div>
+
 
         {/* Google Sign-In */}
         <button
           onClick={handleGoogleSignIn}
-          className="dark:bg-purple-600 dark:hover:bg-purple-700 text-white p-2 rounded max-w-xs mx-auto block"
+          className="dark:bg-purple-600 dark:hover:bg-purple-700 text-white p-2 rounded max-w-xs mx-auto flex gap-2 items-center justify-center w-full "
         >
-          Sign In with Google
+          <FcGoogle className='h-6 w-6 border rounded-full'/>
+           Continue with Google
         </button>
-
-        {/* Switch between Sign-Up and Login */}
-        <p className="mt-4 text-center">
-          {isSignUp ? 'Already have an account?' : 'No account yet?'}
-          <button
-            onClick={() => setIsSignUp(!isSignUp)}
-            className="text-blue-600 underline ml-2"
-          >
-            {isSignUp ? 'Login' : 'Sign Up'}
-          </button>
-        </p>
+      </div>
       </div>
 
-      {/* Right Section with Museum Image */}
-      <div className="w-1/2 flex items-center justify-center">
+    {/* Right Section with Museum Image */}
+    <div className="grid grid-rows-3 grid-flow-col gap-4 w-1/2 p-8 mt-20">
+      <div className="row-span-3 col-span-1 ">
         <img
-          src={museumImage} //imported image
-          alt="Museum"
-          className="object-contain h-3/4 max-w-full mt-24 rounded-md "
+         src={museumImage} // Image 1
+         alt="Dolomite Alps"
+         className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
         />
       </div>
+      <div className='col-span-1'>
+        <img
+         src={museumm} // Image 2
+         alt="Iceland"
+         className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
+        />
+      </div>
+      <div className='row-span-2 col-span-1 '>
+        <img
+         src={museum} // Image 3
+         alt="Ethiopia"
+         className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
+        />
+      </div>
+    </div>
+
     </div>
   );
 };
