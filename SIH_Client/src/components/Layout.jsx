@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function Layout({ isChatBoxOpen }) {
   const [currentImage, setCurrentImage] = useState(0);
-
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1000);
   const images = [
     "/img/2560px-National_Science_Centre_Delhi_19920109-228.jpg",
     "/img/5.jpg",
@@ -17,6 +17,18 @@ export default function Layout({ isChatBoxOpen }) {
       img.src = image;
     });
   }, [images]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 1000);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Effect to automatically change images every 5 seconds
   useEffect(() => {

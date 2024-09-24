@@ -15,45 +15,78 @@ export default function Defaultpage({
   const [messages, setMessages] = useState([
     {
       type: "ai",
-      text: "Hello! What can I do for you today? You can ask me to 'Book a Ticket' or 'Inquire about the Museum Timings'.",
+      text: "Hello! What can I do for you today?",
     },
   ]);
 
-  const [defaultOptions] = useState([
-    { label: "Tell me about museum", value: "museum" },
-    { label: "Book Tickets", value: "book" },
-    { label: "Inquire About Timings", value: "timings" },
-  ]);
+  // Predefined responses based on the conversation flow
+  const predefinedMessages = [
+    { userQuery: "hi", botResponse: "Hello! How can I help you today?" },
+    {
+      userQuery: "tell me about the museum",
+      botResponse: "The museum has exhibits on art, science, and history.",
+    },
+    {
+      userQuery: "book tickets",
+      botResponse:
+        "For which date and time would you like to book the tickets?",
+    },
+    {
+      userQuery: "for tomorrow at 3 pm", // This will be replaced with the actual input from the user later
+      botResponse:
+        "The museum is open at that time. How many tickets do you need?",
+    },
+    {
+      userQuery: "4", // This will also be replaced with the actual input
+      botResponse: "Great ! Do you want to book tickets for the shows as well?",
+    },
+    {
+      userQuery: "yes", // For booking show tickets
+      botResponse: "Great! Forwarding you to the payment gateway...",
+    },
+    {
+      userQuery: "no", // If the user doesn't want to book show tickets
+      botResponse: "Okay! Forwarding you to the payment gateway...",
+    },
+    {
+      userQuery: "inquire about timings",
+      botResponse: "The museum is open from 9 AM to 5 PM every day.",
+    },
+  ];
 
-  const sendMessageToServer = async (message) => {
-    setMessages([...messages, { type: "user", text: message }]);
+  // Index to keep track of predefined message flow
+  const [messageIndex, setMessageIndex] = useState(0);
 
-    try {
-      const response = await fetch("http://localhost:3000/user/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
+  const handleUserQuery = (message) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: "user", text: message },
+    ]);
 
-      const data = await response.json();
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { type: "ai", text: data.response },
-      ]);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
+    // Find a predefined response
+    const response = predefinedMessages.find(
+      (msg) => msg.userQuery.toLowerCase() === message.toLowerCase()
+    );
 
-  // default options for booking and timings
-  const handleOptionClick = (option) => {
-    if (option.value === "book") {
-      sendMessageToServer("I want to book a ticket");
-    } else if (option.value === "timings") {
-      sendMessageToServer("What are the museum timings?");
-    } else {
-      sendMessageToServer("Tell me about the museum");
-    }
+    setTimeout(() => {
+      if (response) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { type: "ai", text: response.botResponse },
+        ]);
+        setMessageIndex(
+          (prevIndex) => (prevIndex + 1) % predefinedMessages.length
+        ); // Cycle through predefined messages
+      } else {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            type: "ai",
+            text: "Sorry, I didn't understand that. Can you try again?",
+          },
+        ]);
+      }
+    }, 2000);
   };
 
   // Handle resizing to toggle mobile view state
@@ -104,27 +137,14 @@ export default function Defaultpage({
           </div>
         </div>
 
-        {/* Default clickable options */}
-        <div className="space-x-4 p-4 flex flex-1">
-          {defaultOptions.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleOptionClick(option)}
-              className="bg-black text-white border hover:border-black transition-all ease-in p-2 rounded-lg hover:bg-white hover:text-black"
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-
         {/* Input Section */}
-        <MessageInput onSendMessage={sendMessageToServer} />
+        <MessageInput onSendMessage={handleUserQuery} />
       </div>
 
       {/* Chat Box Toggle Icon (Visible on small screens) */}
       {!isChatBoxOpen && isMobileView && (
         <button
-          className="fixed bottom-4 right-4 border-2 border-gray-400 bg-white  text-black p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 focus:outline-none sm:hidden md:block"
+          className="fixed bottom-4 right-4 border-2 border-gray-400 bg-white text-black p-4 rounded-full shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300 focus:outline-none sm:hidden md:block"
           onClick={toggleChatBox}
         >
           <GiAstronautHelmet size={"1.8rem"} />
