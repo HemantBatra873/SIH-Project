@@ -1,45 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { auth } from '../service/firebaseconfig';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../service/firebaseconfig";
 import { signOut } from "firebase/auth";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLandmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLandmark } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
-
     // Check if user data is stored in local storage
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (storedUser) {
       // If user data exists in local storage, set it
       setUser(storedUser);
     } else {
-    // If no local storage data, listen to auth changes
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      if (firebaseUser) {
-      // Store user in localStorage when logged in
-      const userData = {
-        email: firebaseUser.email,
-        displayName: firebaseUser.displayName || firebaseUser.email,
-        photoURL: firebaseUser.photoURL || null
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      setUser(userData); // Set user state
-      }
-    });
-    return () => unsubscribe();
-   }
+      // If no local storage data, listen to auth changes
+      const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+        if (firebaseUser) {
+          // Store user in localStorage when logged in
+          const userData = {
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName || firebaseUser.email,
+            photoURL: firebaseUser.photoURL || null,
+          };
+          localStorage.setItem("user", JSON.stringify(userData));
+          setUser(userData); // Set user state
+        }
+      });
+      return () => unsubscribe();
+    }
   }, []);
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         setUser(null);
-        localStorage.removeItem('user'); // Remove user data from local storage
+        localStorage.removeItem("user"); // Remove user data from local storage
         setDropdownVisible(false); // Hide dropdown on logout
       })
       .catch((error) => {
@@ -62,8 +61,8 @@ const Header = ({ toggleSidebar }) => {
           >
             <FontAwesomeIcon icon={faLandmark} />
           </button>
-          <Link to='/home'>
-            <h1 className='font-head text-xl sm:text-2xl md:text-4xl font-semibold ml-2'>
+          <Link to="/home">
+            <h1 className="font-head text-xl sm:text-2xl md:text-4xl font-semibold ml-2">
               Science Museum
             </h1>
           </Link>
@@ -77,17 +76,24 @@ const Header = ({ toggleSidebar }) => {
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
             />
-             {dropdownVisible && (
-            <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg  bg-blue-700 ">
-              <Link to={'/'}>
-                <button onClick={handleLogout} className="text-white bg-blue-700 ">Logout</button>
-              </Link>
-            </div>
+            {dropdownVisible && (
+              <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg  bg-blue-700 ">
+                <Link to={"/"}>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white bg-blue-700 "
+                  >
+                    Logout
+                  </button>
+                </Link>
+              </div>
             )}
           </div>
         ) : (
-          <Link to='/'>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded">Login</button>
+          <Link to="/">
+            <button className="px-4 py-2 bg-blue-600 text-white rounded">
+              Login
+            </button>
           </Link>
         )}
       </div>

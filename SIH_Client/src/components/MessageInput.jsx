@@ -12,6 +12,13 @@ function MessageInput({ onSendMessage }) {
     }
   };
 
+  // Handle the Enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  };
+
   return (
     <div className="relative bg-white border-t border-gray-300 p-4 flex items-center">
       <input
@@ -20,11 +27,12 @@ function MessageInput({ onSendMessage }) {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type your message..."
+        onKeyPress={handleKeyPress} // Listen for key press
       />
       <FontAwesomeIcon
         icon={faPaperPlane}
         onClick={handleSend}
-        className="absolute right-10 text-gray-500 h-6 w-8"
+        className="absolute right-10 text-gray-500 h-6 w-8 cursor-pointer"
       />
     </div>
   );

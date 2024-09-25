@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GiAstronautHelmet } from "react-icons/gi";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import MessageInput from "./MessageInput";
 import ServerChatBox from "./ServerChatBox";
 import UserChatBox from "./UserChatBox";
@@ -19,6 +20,9 @@ export default function Defaultpage({
     },
   ]);
 
+  const messagesEndRef = useRef(null); // Reference to scroll the chat box
+  const navigate = useNavigate(); // Initialize the navigate function
+
   // Predefined responses based on the conversation flow
   const predefinedMessages = [
     { userQuery: "hi", botResponse: "Hello! How can I help you today?" },
@@ -32,20 +36,20 @@ export default function Defaultpage({
         "For which date and time would you like to book the tickets?",
     },
     {
-      userQuery: "for tomorrow at 3 pm", // This will be replaced with the actual input from the user later
+      userQuery: "for tomorrow at 3 pm",
       botResponse:
         "The museum is open at that time. How many tickets do you need?",
     },
     {
-      userQuery: "4", // This will also be replaced with the actual input
-      botResponse: "Great ! Do you want to book tickets for the shows as well?",
+      userQuery: "4",
+      botResponse: "Great! Do you want to book tickets for the shows as well?",
     },
     {
-      userQuery: "yes", // For booking show tickets
+      userQuery: "yes",
       botResponse: "Great! Forwarding you to the payment gateway...",
     },
     {
-      userQuery: "no", // If the user doesn't want to book show tickets
+      userQuery: "no",
       botResponse: "Okay! Forwarding you to the payment gateway...",
     },
     {
@@ -53,9 +57,6 @@ export default function Defaultpage({
       botResponse: "The museum is open from 9 AM to 5 PM every day.",
     },
   ];
-
-  // Index to keep track of predefined message flow
-  const [messageIndex, setMessageIndex] = useState(0);
 
   const handleUserQuery = (message) => {
     setMessages((prevMessages) => [
@@ -74,9 +75,18 @@ export default function Defaultpage({
           ...prevMessages,
           { type: "ai", text: response.botResponse },
         ]);
-        setMessageIndex(
-          (prevIndex) => (prevIndex + 1) % predefinedMessages.length
-        ); // Cycle through predefined messages
+
+        // Check if the bot response is related to the payment gateway
+        if (
+          response.botResponse
+            .toLowerCase()
+            .includes("forwarding you to the payment gateway")
+        ) {
+          // Add delay before navigating to the payment gateway
+          setTimeout(() => {
+            navigate("/payment"); // Redirect to /payment route
+          }, 3000); // 3 seconds delay
+        }
       } else {
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -88,6 +98,13 @@ export default function Defaultpage({
       }
     }, 2000);
   };
+
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   // Handle resizing to toggle mobile view state
   useEffect(() => {
@@ -134,6 +151,8 @@ export default function Defaultpage({
                 <ServerChatBox key={index} message={msg.text} />
               )
             )}
+            {/* Scroll to this element to view the latest message */}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
