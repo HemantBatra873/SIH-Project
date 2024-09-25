@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import LeftSideBar from "./components/LeftSideBar";
 import Home from "./pages/Home";
 import Login from "./components/Login";
+import Payment from "./components/Payment";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Login />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );
