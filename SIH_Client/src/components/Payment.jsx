@@ -55,7 +55,7 @@ const Payment = () => {
                   number: number,
                 }).then((response) => {
                   if (response.data.message === "Success") {
-                    console.log(response.data.message)
+                    
                   }
                 }).catch((err) => {
                   console.log(err);
