@@ -25,37 +25,36 @@ export default function Defaultpage({
 
   // Predefined responses based on the conversation flow
   const predefinedMessages = [
-    { userQuery: "hi", botResponse: "Hello! How can I help you today?" },
-    {
-      userQuery: "tell me about the museum",
-      botResponse: "The museum has exhibits on art, science, and history.",
+    { 
+      userQuery: "hi", 
+      botResponse: "Hello! How can I help you today?" 
     },
     {
-      userQuery: "book tickets",
+      userQuery: "i would like to know about the sustainability policy of GAIL",
+      botResponse: "GAIL (India) Limited follows a comprehensive sustainability policy that aligns with its goal of promoting sustainable business practices and reducing environmental impact. The company integrates sustainability into its operations through strategic initiatives that focus on environmental, social, and economic performance. You can read more here: https://www.gailonline.com/SBPolicy.html",
+    },
+    {
+      userQuery: "can you tell the objective of GAIL's sustainability policy",
       botResponse:
-        "For which date and time would you like to book the tickets?",
+        "The main object of GAIL's sustainability policy is net zero vision aimed at reducing Scope 1, 2 and 3 emissions. You can read more about it here: https://www.gailonline.com/pdf/Sustainability/Sustainability_Policy_English_17072024.pdf",
     },
     {
-      userQuery: "for tomorrow at 3 pm",
+      userQuery: "what are some upcoming company events",
       botResponse:
-        "The museum is open at that time. How many tickets do you need?",
+        "Which GAIL office do you work in?",
     },
     {
-      userQuery: "4",
-      botResponse: "Great! Do you want to book tickets for the shows as well?",
+      userQuery: "noida",
+      botResponse: "As of yet there are no upcoming company events in our noida office",
     },
     {
-      userQuery: "yes",
-      botResponse: "Great! Forwarding you to the payment gateway...",
+      userQuery: "Thanks",
+      botResponse: "You're welcome",
     },
     {
-      userQuery: "no",
-      botResponse: "Okay! Forwarding you to the payment gateway...",
-    },
-    {
-      userQuery: "inquire about timings",
-      botResponse: "The museum is open from 9 AM to 5 PM every day.",
-    },
+      userQuery: "can you scan a file for me? ",
+      botResponse: "yes go to the /scan page to scan your files",
+    }
   ];
 
   const handleUserQuery = (message) => {

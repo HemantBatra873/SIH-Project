@@ -7,7 +7,8 @@ import Home from "./pages/Home";
 import Login from "./components/Login";
 import Payment from "./components/Payment";
 import Thanks from "./components/Thanks";
-
+import Scan from "./components/Scan";
+import Output from "./components/Output";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +33,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/thank-you" element={<Thanks />} />
+        <Route path="/scan" element={<Scan />} />
+        <Route path="/output" element={<Output />} />
       </Routes>
     </BrowserRouter>
   );
