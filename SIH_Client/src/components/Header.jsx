@@ -24,7 +24,9 @@ const Header = ({ toggleSidebar }) => {
           const userData = {
             email: firebaseUser.email,
             displayName: firebaseUser.displayName || firebaseUser.email,
-            photoURL: firebaseUser.photoURL || null,
+            photoURL:
+              firebaseUser.photoURL ||
+              "https://lh3.googleusercontent.com/a/ACg8ocJBbc53H1upARwmh_3vqbAQmWQ1c5sNQindUPsjYo1rUaPW5Q=s96-c",
           };
           localStorage.setItem("user", JSON.stringify(userData));
           setUser(userData); // Set user state

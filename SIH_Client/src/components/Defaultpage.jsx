@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GiAstronautHelmet } from "react-icons/gi";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import ServerChatBox from "./ServerChatBox";
 import UserChatBox from "./UserChatBox";
+import FileUploadBox from "./FileUploadBox";
 
 export default function Defaultpage({
   isChatBoxOpen,
@@ -25,36 +26,39 @@ export default function Defaultpage({
 
   // Predefined responses based on the conversation flow
   const predefinedMessages = [
-    { userQuery: "hi", botResponse: "Hello! How can I help you today?" },
+    { userQuery: "hi", botResponse: "Hello! How can I assist you today?" },
     {
-      userQuery: "tell me about the museum",
-      botResponse: "The museum has exhibits on art, science, and history.",
-    },
-    {
-      userQuery: "book tickets",
+      userQuery: "inquire about HR policies",
       botResponse:
-        "For which date and time would you like to book the tickets?",
+        "Our HR policies are accessible in the HR section of our intranet. You can also upload documents for policy queries.",
     },
     {
-      userQuery: "for tomorrow at 3 pm",
+      userQuery: "IT support",
       botResponse:
-        "The museum is open at that time. How many tickets do you need?",
+        "For IT support, please specify your issue or upload a screenshot.",
     },
     {
-      userQuery: "4",
-      botResponse: "Great! Do you want to book tickets for the shows as well?",
+      userQuery: "upcoming company events",
+      botResponse:
+        "The next company event is the Annual Tech Meet on October 5th.",
     },
     {
-      userQuery: "yes",
-      botResponse: "Great! Forwarding you to the payment gateway...",
+      userQuery: "upload document",
+      botResponse:
+        "Please upload the document for summarization or keyword extraction.",
     },
     {
-      userQuery: "no",
-      botResponse: "Okay! Forwarding you to the payment gateway...",
+      userQuery: "summarize document",
+      botResponse: "Please provide the document",
     },
     {
-      userQuery: "inquire about timings",
-      botResponse: "The museum is open from 9 AM to 5 PM every day.",
+      userQuery: "2FA authentication",
+      botResponse:
+        "Please enter the code sent to your registered email for 2FA verification.",
+    },
+    {
+      userQuery: "what the fuck",
+      botResponse: "Please refrain from using inappropriate language.",
     },
   ];
 
@@ -97,6 +101,15 @@ export default function Defaultpage({
         ]);
       }
     }, 2000);
+  };
+
+  // Handle file upload
+  const handleFileUpload = (file) => {
+    setMessages((prevMessages) => [...prevMessages, { type: "file", file }]);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: "ai", text: "Document uploaded. We'll process it shortly." },
+    ]);
   };
 
   // Scroll to the bottom whenever messages change
@@ -144,20 +157,26 @@ export default function Defaultpage({
         {/* Output Section */}
         <div className="flex-1 sm:mb-5 overflow-auto h-[52vh] sm:h-[65vh] w-11/12 border border-gray-300 rounded-lg p-4 mx-auto">
           <div className="messages">
-            {messages.map((msg, index) =>
-              msg.type === "user" ? (
-                <UserChatBox key={index} message={msg.text} />
-              ) : (
-                <ServerChatBox key={index} message={msg.text} />
-              )
-            )}
+            {messages.map((msg, index) => {
+              if (msg.type === "user") {
+                return <UserChatBox key={index} message={msg.text} />;
+              } else if (msg.type === "ai") {
+                return <ServerChatBox key={index} message={msg.text} />;
+              } else if (msg.type === "file") {
+                return <FileUploadBox key={index} file={msg.file} />; // Rendering the file in the chat
+              }
+              return null;
+            })}
             {/* Scroll to this element to view the latest message */}
             <div ref={messagesEndRef} />
           </div>
         </div>
 
         {/* Input Section */}
-        <MessageInput onSendMessage={handleUserQuery} />
+        <MessageInput
+          onSendMessage={handleUserQuery}
+          onFileUpload={handleFileUpload}
+        />
       </div>
 
       {/* Chat Box Toggle Icon (Visible on small screens) */}
