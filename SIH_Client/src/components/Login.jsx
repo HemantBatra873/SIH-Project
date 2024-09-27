@@ -4,9 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithP
 import { setDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import museumImage from '../assets/museumphoto.jpg';
-import museum from '../assets/museum.jpg';
-import museumm from '../assets/museumm.jpg';
+
 
 
 
@@ -109,7 +107,8 @@ const Login = () => {
   return (
     <div className="flex max-h-screen bg-gray-900 text-white">
       <div className="flex flex-col justify-center w-1/2 p-8 mt-20">
-        <h1 className="text-4xl mb-4 text-center">Welcome to Science Museum 🎟️</h1>
+        <h1 className="text-4xl mb-4 text-center">Welcome to GAIL (India) Limited</h1>
+        <h3 className="text-lg pl-2 pr-2 text-center">Through technology and innovation, we are executing major capital projects designed to yield decades of energy.</h3>
         <div className='flex flex-col w-96 border rounded-xl self-center place-content-center place-items-center space-y-4 p-4 shadow-lg shadow-gray-400 mt-4'>
         <h2 className="text-3xl mb-4 text-center mt-4">{isSignUp ? 'Sign Up to get Started' : 'Hey, Sign In'}</h2>
 
@@ -192,21 +191,21 @@ const Login = () => {
     <div className="grid grid-rows-3 grid-flow-col gap-4 w-1/2 p-8 mt-20">
       <div className="row-span-3 col-span-1 ">
         <img
-         src={museumImage} // Image 1
+         src={"https://www.gailonline.com/images/about/Vision.jpg"} // Image 1
          alt="Dolomite Alps"
          className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
         />
       </div>
       <div className='col-span-1'>
         <img
-         src={museumm} // Image 2
+         src={"https://cdn.zeebiz.com/sites/default/files/2017/03/03/15341-gail-india-official-website.jpg"} // Image 2
          alt="Iceland"
          className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
         />
       </div>
       <div className='row-span-2 col-span-1 '>
         <img
-         src={museum} // Image 3
+         src={"https://etimg.etb2bimg.com/photo/77844952.cms"} // Image 3
          alt="Ethiopia"
          className="w-full h-full object-cover shadow-lg shadow-gray-800 rounded-lg transition-all duration-300 hover:scale-105"
         />
