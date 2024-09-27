@@ -55,11 +55,14 @@ const Header = ({ toggleSidebar }) => {
       <div className="h-full min-h-16 flex justify-between items-center mx-auto p-2 md:p-4 max-w-1xl">
         <div className="inline-flex items-center">
           <button
-            className="text-2xl sm:text-3xl md:text-4xl p-2 transition bg-white rounded-full hover:shadow-xl focus:shadow-lg"
+            className="object-cover scale-125 transition bg-white rounded-full hover:shadow-xl focus:shadow-lg"
             type="button"
             onClick={toggleSidebar}
-          >
-            <FontAwesomeIcon icon={faGasPump} />
+          > <img src="https://newsmantra.in/wp-content/uploads/2023/08/GAIL-LOGO-1.png" alt="gail.logo" 
+             height={50}
+             width={50}
+             className="rounded-full" />
+            {/* <FontAwesomeIcon icon={faGasPump} /> */}
           </button>
           <Link to="/home">
             <h1 className="font-head text-xl sm:text-2xl md:text-4xl font-semibold ml-2">
@@ -71,7 +74,7 @@ const Header = ({ toggleSidebar }) => {
         {user ? (
           <div className="relative">
             <img
-              src={user.photoURL || "/img/default-avatar.png"}
+              src={user.photoURL}
               alt="Profile"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}

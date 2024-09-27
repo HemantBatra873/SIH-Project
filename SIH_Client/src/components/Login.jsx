@@ -4,9 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithP
 import { setDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import museumImage from '../assets/museumphoto.jpg';
-import museum from '../assets/museum.jpg';
-import museumm from '../assets/museumm.jpg';
+
 
 
 
@@ -110,6 +108,7 @@ const Login = () => {
     <div className="flex max-h-screen bg-gray-900 text-white">
       <div className="flex flex-col justify-center w-1/2 p-8 mt-20">
         <h1 className="text-4xl mb-4 text-center">Welcome to GAIL (India) Limited</h1>
+        <h3 className="text-lg pl-2 pr-2 text-center">Through technology and innovation, we are executing major capital projects designed to yield decades of energy.</h3>
         <div className='flex flex-col w-96 border rounded-xl self-center place-content-center place-items-center space-y-4 p-4 shadow-lg shadow-gray-400 mt-4'>
         <h2 className="text-3xl mb-4 text-center mt-4">{isSignUp ? 'Sign Up to get Started' : 'Hey, Sign In'}</h2>
 
