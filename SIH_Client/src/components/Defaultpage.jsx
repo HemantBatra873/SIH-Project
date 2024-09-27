@@ -26,40 +26,36 @@ export default function Defaultpage({
 
   // Predefined responses based on the conversation flow
   const predefinedMessages = [
-    { userQuery: "hi", botResponse: "Hello! How can I assist you today?" },
+    { 
+      userQuery: "hi", 
+      botResponse: "Hello! How can I help you today?" 
+    },
     {
-      userQuery: "inquire about HR policies",
+      userQuery: "i would like to know about the sustainability policy of GAIL",
+      botResponse: "GAIL (India) Limited follows a comprehensive sustainability policy that aligns with its goal of promoting sustainable business practices and reducing environmental impact. The company integrates sustainability into its operations through strategic initiatives that focus on environmental, social, and economic performance. You can read more here: https://www.gailonline.com/SBPolicy.html",
+    },
+    {
+      userQuery: "can you tell the objective of GAIL's sustainability policy",
       botResponse:
-        "Our HR policies are accessible in the HR section of our intranet. You can also upload documents for policy queries.",
+        "The main object of GAIL's sustainability policy is net zero vision aimed at reducing Scope 1, 2 and 3 emissions. You can read more about it here: https://www.gailonline.com/pdf/Sustainability/Sustainability_Policy_English_17072024.pdf",
     },
     {
-      userQuery: "IT support",
+      userQuery: "what are some upcoming company events",
       botResponse:
-        "For IT support, please specify your issue or upload a screenshot.",
+        "Which GAIL office do you work in?",
     },
     {
-      userQuery: "upcoming company events",
-      botResponse:
-        "The next company event is the Annual Tech Meet on October 5th.",
+      userQuery: "noida",
+      botResponse: "As of yet there are no upcoming company events in our noida office",
     },
     {
-      userQuery: "upload document",
-      botResponse:
-        "Please upload the document for summarization or keyword extraction.",
+      userQuery: "Thanks",
+      botResponse: "You're welcome",
     },
     {
-      userQuery: "summarize document",
-      botResponse: "Please provide the document",
-    },
-    {
-      userQuery: "2FA authentication",
-      botResponse:
-        "Please enter the code sent to your registered email for 2FA verification.",
-    },
-    {
-      userQuery: "what the fuck",
-      botResponse: "Please refrain from using inappropriate language.",
-    },
+      userQuery: "can you scan a file for me? ",
+      botResponse: "yes go to the /scan page to scan your files",
+    }
   ];
 
   const handleUserQuery = (message) => {
@@ -190,4 +186,4 @@ export default function Defaultpage({
       )}
     </div>
   );
-}
+};
