@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GiAstronautHelmet } from "react-icons/gi";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import ServerChatBox from "./ServerChatBox";
 import UserChatBox from "./UserChatBox";
+import FileUploadBox from "./FileUploadBox";
 
 export default function Defaultpage({
   isChatBoxOpen,
@@ -98,6 +99,15 @@ export default function Defaultpage({
     }, 2000);
   };
 
+  // Handle file upload
+  const handleFileUpload = (file) => {
+    setMessages((prevMessages) => [...prevMessages, { type: "file", file }]);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: "ai", text: "Document uploaded. We'll process it shortly." },
+    ]);
+  };
+
   // Scroll to the bottom whenever messages change
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -143,20 +153,26 @@ export default function Defaultpage({
         {/* Output Section */}
         <div className="flex-1 sm:mb-5 overflow-auto h-[52vh] sm:h-[65vh] w-11/12 border border-gray-300 rounded-lg p-4 mx-auto">
           <div className="messages">
-            {messages.map((msg, index) =>
-              msg.type === "user" ? (
-                <UserChatBox key={index} message={msg.text} />
-              ) : (
-                <ServerChatBox key={index} message={msg.text} />
-              )
-            )}
+            {messages.map((msg, index) => {
+              if (msg.type === "user") {
+                return <UserChatBox key={index} message={msg.text} />;
+              } else if (msg.type === "ai") {
+                return <ServerChatBox key={index} message={msg.text} />;
+              } else if (msg.type === "file") {
+                return <FileUploadBox key={index} file={msg.file} />; // Rendering the file in the chat
+              }
+              return null;
+            })}
             {/* Scroll to this element to view the latest message */}
             <div ref={messagesEndRef} />
           </div>
         </div>
 
         {/* Input Section */}
-        <MessageInput onSendMessage={handleUserQuery} />
+        <MessageInput
+          onSendMessage={handleUserQuery}
+          onFileUpload={handleFileUpload}
+        />
       </div>
 
       {/* Chat Box Toggle Icon (Visible on small screens) */}
@@ -170,4 +186,4 @@ export default function Defaultpage({
       )}
     </div>
   );
-}
+};

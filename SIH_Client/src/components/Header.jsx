@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../service/firebaseconfig";
 import { signOut } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLandmark } from "@fortawesome/free-solid-svg-icons";
+import { faGasPump } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
@@ -24,7 +24,9 @@ const Header = ({ toggleSidebar }) => {
           const userData = {
             email: firebaseUser.email,
             displayName: firebaseUser.displayName || firebaseUser.email,
-            photoURL: firebaseUser.photoURL || null,
+            photoURL:
+              firebaseUser.photoURL ||
+              "https://lh3.googleusercontent.com/a/ACg8ocJBbc53H1upARwmh_3vqbAQmWQ1c5sNQindUPsjYo1rUaPW5Q=s96-c",
           };
           localStorage.setItem("user", JSON.stringify(userData));
           setUser(userData); // Set user state
@@ -55,15 +57,18 @@ const Header = ({ toggleSidebar }) => {
       <div className="h-full min-h-16 flex justify-between items-center mx-auto p-2 md:p-4 max-w-1xl">
         <div className="inline-flex items-center">
           <button
-            className="text-2xl sm:text-3xl md:text-4xl p-2 transition bg-white rounded-full hover:shadow-xl focus:shadow-lg"
+            className="object-cover scale-125 transition bg-white rounded-full hover:shadow-xl focus:shadow-lg"
             type="button"
             onClick={toggleSidebar}
-          >
-            <FontAwesomeIcon icon={faLandmark} />
+          > <img src="https://newsmantra.in/wp-content/uploads/2023/08/GAIL-LOGO-1.png" alt="gail.logo" 
+             height={50}
+             width={50}
+             className="rounded-full" />
+            {/* <FontAwesomeIcon icon={faGasPump} /> */}
           </button>
           <Link to="/home">
             <h1 className="font-head text-xl sm:text-2xl md:text-4xl font-semibold ml-2">
-              Science Museum
+              GAIL (India) Limited
             </h1>
           </Link>
         </div>
@@ -77,11 +82,23 @@ const Header = ({ toggleSidebar }) => {
               onClick={toggleDropdown}
             />
             {dropdownVisible && (
-              <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg  bg-blue-700 ">
+              <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg border-gray-400  bg-gray-50">
+        
+                <Link to="/profile">
+                  <button className="block text-gray-900 hover:text-black">
+                    Profile
+                  </button>
+                </Link>
+                <Link to="/settings">
+                  <button className="block text-gray-900 hover:text-black mt-2">
+                    Settings
+                  </button>
+                </Link>
+
                 <Link to={"/"}>
                   <button
                     onClick={handleLogout}
-                    className="text-white bg-blue-700 "
+                    className="text-white bg-blue-700 rounded-md p-1 mt-2 mb-2"
                   >
                     Logout
                   </button>

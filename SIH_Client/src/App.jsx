@@ -28,9 +28,10 @@ function App() {
       {/* Sidebar component with isOpen and closeSidebar passed as props */}
       <LeftSideBar isOpen={isOpen} closeSidebar={closeSidebar} />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/thank-you" element={<Thanks />} />
         <Route path="/scan" element={<Scan />} />
