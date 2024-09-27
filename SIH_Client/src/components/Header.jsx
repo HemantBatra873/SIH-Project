@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../service/firebaseconfig";
 import { signOut } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLandmark } from "@fortawesome/free-solid-svg-icons";
+import { faGasPump } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
@@ -59,11 +59,11 @@ const Header = ({ toggleSidebar }) => {
             type="button"
             onClick={toggleSidebar}
           >
-            <FontAwesomeIcon icon={faLandmark} />
+            <FontAwesomeIcon icon={faGasPump} />
           </button>
           <Link to="/home">
             <h1 className="font-head text-xl sm:text-2xl md:text-4xl font-semibold ml-2">
-              Science Museum
+              GAIL (India) Limited
             </h1>
           </Link>
         </div>
@@ -71,17 +71,29 @@ const Header = ({ toggleSidebar }) => {
         {user ? (
           <div className="relative">
             <img
-              src={user.photoURL}
+              src={user.photoURL || "/img/default-avatar.png"}
               alt="Profile"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
             />
             {dropdownVisible && (
-              <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg  bg-blue-700 ">
+              <div className="absolute right-0 mt-2 p-2 border rounded shadow-lg border-gray-400  bg-gray-50">
+        
+                <Link to="/profile">
+                  <button className="block text-gray-900 hover:text-black">
+                    Profile
+                  </button>
+                </Link>
+                <Link to="/settings">
+                  <button className="block text-gray-900 hover:text-black mt-2">
+                    Settings
+                  </button>
+                </Link>
+
                 <Link to={"/"}>
                   <button
                     onClick={handleLogout}
-                    className="text-white bg-blue-700 "
+                    className="text-white bg-blue-700 rounded-md p-1 mt-2 mb-2"
                   >
                     Logout
                   </button>

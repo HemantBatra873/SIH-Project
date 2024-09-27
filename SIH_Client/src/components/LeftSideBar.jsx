@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -23,20 +21,35 @@ export default function LeftSideBar({ isOpen, closeSidebar }) {
           </button>
           
           {/* Sidebar Content */}
-          <h2 className="text-xl font-semibold mb-4 border-b border-gray-600 pb-2">Museum Services</h2>
+          <h2 className="text-xl font-semibold mb-4 border-b border-gray-600 pb-2">GAIL Services</h2>
           
           <ul className="space-y-4">
             <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
-              <button className="w-full text-left p-2 rounded">Book a Tour</button>
+              <button className="w-full text-left p-2 rounded">Gas Distribution Network</button>
             </li>
             <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
-              <button className="w-full text-left p-2 rounded">Buy Tickets</button>
+              <button className="w-full text-left p-2 rounded">Pipeline Infrastructure</button>
             </li>
             <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
-              <button className="w-full text-left p-2 rounded">Exhibit Information</button>
+              <button className="w-full text-left p-2 rounded">Petrochemical Production</button>
             </li>
             <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
-              <button className="w-full text-left p-2 rounded">Contact Us</button>
+              <button className="w-full text-left p-2 rounded">Natural Gas Trading</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Investor Relations</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Sustainability Initiatives</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Careers</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Tenders & Contracts</button>
+            </li>
+            <li className="cursor-pointer hover:text-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-900 hover:rounded-lg">
+              <button className="w-full text-left p-2 rounded">Contact & Support</button>
             </li>
           </ul>
         </div>
